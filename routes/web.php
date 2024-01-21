@@ -18,15 +18,13 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-// Route::get('/migrate', function(){
-//     return ("Migration was successful");
-// });
+Route::get('/migrate', function(){
+    Artisan::call('migrate');
+    return ("Migration was successful");
+});
 
-
-// Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
