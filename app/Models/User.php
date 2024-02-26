@@ -12,34 +12,59 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
+    
     protected $fillable = [
-        'name',
-        'email',
+        'phone',
         'password',
+        'password_salt',
     ];
 
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array<int, string>
-     */
     protected $hidden = [
-        'password',
+        'password_salt',
         'remember_token',
     ];
 
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array<string, string>
-     */
     protected $casts = [
-        'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function info()
+    {
+        return $this->hasOne(UserInfo::class, 'userId');
+    }
+
+    public function interests()
+    {
+        return $this->hasMany(UserInterest::class, 'userId');
+    }
+
+    public function address()
+    {
+        return $this->hasOne(Address::class, 'userId');
+    }
+
+    public function likes()
+    {
+        return $this->hasMany(UserReaction::class, 'to')->where('type', 'like');
+    }
+
+    public function dislikes()
+    {
+        return $this->hasMany(UserReaction::class, 'to')->where('type', 'dislike');
+    }
+
+    public function hearts()
+    {
+        return $this->hasMany(UserReaction::class, 'to')->where('type', 'heart');
+    }
+
+    public function reels()
+    {
+        return $this->hasMany(Reel::class, 'owner');
+    }
+
+    public function gallery()  
+    {
+        return $this->hasMany(Gallery::class, 'userId');
+    }
 }

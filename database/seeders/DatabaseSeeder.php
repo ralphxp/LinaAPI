@@ -18,5 +18,36 @@ class DatabaseSeeder extends Seeder
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
         // ]);
+        $interests = [
+            "photography",
+            "cooking",
+            "video games",
+            "hiking",
+            "shopping",
+            "travelling",
+            "speeches",
+            "swimming",
+            "tourism",
+            "Arts and crafts",
+            "sports",
+            "wrestling",
+            "fitness",
+            "reading",
+            "dancing",
+            "extreme sports",
+            "movies",
+            "hunting",
+            "technology",
+            "AI and robotics",
+            "trekking",
+            "groceries",
+            "baking",
+        ];
+
+        foreach($interests as $interest){
+            \App\Models\Interest::create([
+                    'name' => $interest,
+                ]);
+        }
     }
 }
